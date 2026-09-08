@@ -23,9 +23,7 @@
   },
   "ignorePatterns": [
     "dist/**",
-    "coverage/**",
-    "components/ui/**",
-    "hooks/**"
+    "coverage/**"
   ],
   "rules": {
     "no-array-constructor": "error",
