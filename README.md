@@ -24,7 +24,7 @@ npm run build
 npm run preview
 ```
 
-純前端的 Vite 專案：沒有 API 路由、沒有 server actions、沒有資料庫。所有遊戲狀態都在瀏覽器記憶體裡，關掉分頁就重來。
+純前端的 Vite 專案，只依賴 React、Three.js、lucide-react 與 Base UI 的 Dialog：沒有 API 路由、沒有 server actions、沒有資料庫。所有遊戲狀態都在瀏覽器記憶體裡，關掉分頁就重來。
 
 ## GitHub Pages
 
