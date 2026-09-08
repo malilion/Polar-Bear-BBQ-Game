@@ -1,0 +1,26 @@
+{
+  "generator": "scripts/build_scene.py",
+  "blender": "4.5.0",
+  "mesh_count": 350,
+  "source": "assets/blender/polar-bbq.blend",
+  "scene": "polar-bbq.glb",
+  "grills": [
+    "GrillHit0",
+    "GrillHit1",
+    "GrillHit2"
+  ],
+  "food_groups": [
+    "Food_meat_0",
+    "Food_meat_1",
+    "Food_meat_2",
+    "Food_fish_0",
+    "Food_fish_1",
+    "Food_fish_2"
+  ],
+  "guests": [
+    "Guest_0",
+    "Guest_1",
+    "Guest_2"
+  ],
+  "coordinate_system": "glTF Y-up; exported from Blender Z-up"
+}
