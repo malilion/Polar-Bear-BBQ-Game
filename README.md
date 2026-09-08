@@ -1,5 +1,7 @@
 # 北極熊烤肉店 3D
 
+**線上試玩：<https://malilion.github.io/Polar-Bear-BBQ-Game/>**
+
 使用 Blender 背景模式建模，匯出 GLB，由 Three.js 即時呈現的簡單烤肉遊戲。
 
 - 拖曳旋轉、滾輪或雙指縮放；也有縮放與重設視角按鈕。
@@ -16,6 +18,19 @@ npm run dev
 npm run test:game
 npm run build
 ```
+
+## GitHub Pages
+
+遊戲全部在瀏覽器端執行，因此另有一條純靜態建置路徑，不需要 vinext/Cloudflare 的 server 端。
+
+```sh
+npm run build:pages
+npx vite preview --config vite.gh.config.ts
+```
+
+`web/` 是靜態進入點，直接掛載 `app/page.tsx`，遊戲程式碼與 `npm run dev` 完全共用。輸出在 `gh-dist/`（未納入 Git）。`vite.gh.config.ts` 的 `base` 預設為 `/Polar-Bear-BBQ-Game/`，可用 `PAGES_BASE` 覆寫；GLB 路徑會跟著 `import.meta.env.BASE_URL` 解析，所以放在子路徑也載得到。
+
+推送到 `main` 時，`.github/workflows/pages.yml` 會自動建置並部署到 GitHub Pages。
 
 ## 使用 headless Blender 重新建模
 
