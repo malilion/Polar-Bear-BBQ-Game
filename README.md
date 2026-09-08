@@ -17,20 +17,18 @@ npm install
 npm run dev
 npm run test:game
 npm run build
+npm run preview
 ```
+
+純前端的 Vite 專案：沒有 API 路由、沒有 server actions、沒有資料庫。所有遊戲狀態都在瀏覽器記憶體裡，關掉分頁就重來。
 
 ## GitHub Pages
 
-遊戲全部在瀏覽器端執行，因此另有一條純靜態建置路徑，不需要 vinext/Cloudflare 的 server 端。
+`web/index.html` 是進入點，掛載 `app/page.tsx`。`npm run build` 輸出靜態檔到 `dist/`（未納入 Git）。
 
-```sh
-npm run build:pages
-npx vite preview --config vite.gh.config.ts
-```
+建置時的 `base` 預設為 `/Polar-Bear-BBQ-Game/`，可用 `PAGES_BASE` 環境變數覆寫；GLB 路徑跟著 `import.meta.env.BASE_URL` 解析，所以放在任何子路徑都載得到。`npm run dev` 一律走根路徑。
 
-`web/` 是靜態進入點，直接掛載 `app/page.tsx`，遊戲程式碼與 `npm run dev` 完全共用。輸出在 `gh-dist/`（未納入 Git）。`vite.gh.config.ts` 的 `base` 預設為 `/Polar-Bear-BBQ-Game/`，可用 `PAGES_BASE` 覆寫；GLB 路徑會跟著 `import.meta.env.BASE_URL` 解析，所以放在子路徑也載得到。
-
-推送到 `main` 時，`.github/workflows/pages.yml` 會自動建置並部署到 GitHub Pages。
+推送到 `main` 時，`.github/workflows/pages.yml` 會自動建置並部署。
 
 ## 使用 headless Blender 重新建模
 
