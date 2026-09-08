@@ -34,3 +34,56 @@
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:800px){.scene{min-height:510px}.intro-overlay{padding-bottom:65px}.view-controls>span{font-size:11px}}
 @media(max-width:560px){.scene{min-height:525px}.scene-label{font-size:10px;padding:7px 9px}.intro-overlay{padding:15px 15px 63px}.intro-overlay .start-card{width:235px;padding:13px}.intro-overlay .start-card h1{font-size:16px}.intro-overlay .start-card>p:not(.eyebrow){font-size:12px}.intro-overlay .eyebrow{font-size:11px}.intro-overlay .start-card>small{font-size:11px}.intro-overlay .primary{padding:9px 12px}.chef-badge{display:none}.view-controls{bottom:13px;right:13px}}
+
+/* Polish pass: combo, popups, stars, keyboard hints, event flashes. */
+kbd{font:inherit;font-size:10px;font-weight:700;line-height:1;padding:3px 5px;border-radius:5px;background:#e9efe7;color:#5d7368;border:1px solid #cfdcd4;box-shadow:0 1px 0 #cfdcd4;letter-spacing:.3px;font-variant-numeric:tabular-nums}
+.best{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#a07a35;background:#fff5d8;border:1px solid #ecd9a2;padding:6px 11px;border-radius:20px;margin-right:6px}
+.combo{display:inline-flex;align-items:center;gap:4px;margin-left:12px;font-size:12px;font-weight:800;color:#b45a1c;background:#ffe9cf;border:1px solid #f4c58f;padding:4px 9px;border-radius:20px;animation:combo-pop .35s cubic-bezier(.3,1.6,.5,1)}
+.combo.hot{color:#fff;background:#e7683a;border-color:#e7683a;box-shadow:0 0 0 3px #f6c7ab}
+@keyframes combo-pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.money{position:relative}
+.popups{position:absolute;left:50%;bottom:100%;width:0;pointer-events:none}
+.popup{position:absolute;left:0;bottom:4px;transform:translateX(-50%);white-space:nowrap;font-style:normal;font-weight:900;font-size:17px;color:#b07a2a;text-shadow:0 1px 0 #fff;animation:popup-rise 1.1s ease-out forwards}
+.popup.combo{color:#e0612f;font-size:20px}
+.popup.bad{color:#c04a33;font-size:13px;font-weight:700}
+@keyframes popup-rise{0%{transform:translate(-50%,10px) scale(.7);opacity:0}15%{transform:translate(-50%,-4px) scale(1.1);opacity:1}100%{transform:translate(-50%,-34px) scale(1);opacity:0}}
+.star-row{display:inline-flex;gap:2px;vertical-align:middle;color:#d9d3bd}
+.star-row svg.lit{color:#e9ac3a;fill:#f5c451}
+.star-row.big{justify-content:center;gap:8px;margin:0 auto 12px;color:#e3ddcb}
+.star-row.big svg{width:34px;height:34px}
+.star-row.big svg.lit{animation:star-in .5s cubic-bezier(.3,1.7,.5,1) both;filter:drop-shadow(0 2px 4px #e2b45a66)}
+@keyframes star-in{from{transform:scale(0) rotate(-40deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+.results{flex-wrap:wrap;gap:10px 0}
+.results span{flex:1 0 45%}
+.start-card kbd{background:#fff;margin:0 2px}
+.serve kbd,.ingredient kbd,.slot-key{position:absolute}
+.serve{position:relative}.serve kbd{left:7px;top:50%;transform:translateY(-50%);opacity:.7}
+.serve.ready kbd{background:#fff3;color:#fff;border-color:#fff4;box-shadow:none}
+.ingredient kbd{left:6px;top:5px}
+.slot-key{right:6px;top:5px;background:#2c403c;color:#a9bfb3;border-color:#4a615b;box-shadow:none}
+.grill-slot.cooked .slot-key{background:#3d6540;color:#e8f7d6;border-color:#6e9a66}
+.grill-slot.hurry{animation:hurry .25s ease-in-out infinite alternate;border-color:#ffb28a;background:#7a5a3a}
+@keyframes hurry{from{box-shadow:inset 0 0 0 2px #ff9b6a}to{box-shadow:inset 0 0 0 5px #ff9b6a}}
+.cook-progress{position:relative}
+.cook-progress em{position:absolute;top:-2px;bottom:-2px;width:2px;background:#fff8;border-radius:2px;transform:translateX(-50%)}
+.patience.tip i{background:#7fb883}
+.guest.anxious{animation:shiver .28s ease-in-out infinite alternate;border-color:#e6b9a8}
+@keyframes shiver{from{transform:translateX(-1px)}to{transform:translateX(1px)}}
+.tray-item.has{background:#e6efd7;border-color:#c5d8a8;color:#4c6a3c}
+.tray-item.has b{color:#3c5a2a}
+.message span{animation:msg-in .3s ease-out}
+@keyframes msg-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.flash-serve .money{animation:flash-gold .45s ease-out}
+@keyframes flash-gold{0%{background:#ffe7a0;transform:scale(1.06)}100%{background:#fff8de;transform:none}}
+.flash-burn .kitchen,.flash-miss .orders{animation:flash-bad .45s ease-out}
+@keyframes flash-bad{0%{box-shadow:0 0 0 3px #e8917b}100%{box-shadow:0 0 0 0 #e8917b00}}
+.flash-ready .fire-status{animation:flash-ready .45s ease-out}
+@keyframes flash-ready{0%{background:#d9f0bd;color:#3d6a2a}100%{background:#f6ead8}}
+.keys{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:#6d7a66;align-items:center}
+.keys>.eyebrow{width:100%;margin-bottom:2px}
+.keys div{display:flex;align-items:center;gap:4px}
+.keys kbd{background:#fff}
+.help-modal .primary{margin-top:22px}
+@media(max-width:560px){.best{display:none}.serve kbd,.ingredient kbd,.slot-key{display:none}.combo{margin-left:6px}}
+@media(prefers-reduced-motion:reduce){.combo,.popup,.star-row.big svg.lit{animation:none!important}.popup{opacity:1}}
+.shop-label b{flex-wrap:wrap}.shop-label .star-row{flex-basis:100%;margin-bottom:2px}
