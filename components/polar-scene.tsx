@@ -58,19 +58,46 @@ export default function PolarScene({ state, onSlot, onReady }: Props) {
     // A slow orbit on the title screen invites people to look around; it stops at the first drag.
     controls.autoRotateSpeed = .5;
     let touched = false;
+    // HUD panels float over the canvas; measure them so the shop is centred in
+    // the part of the viewport they leave uncovered, not behind the dock.
+    const stage = host.parentElement;
+    const panels = stage ? Array.from(stage.querySelectorAll<HTMLElement>('.orders, .kitchen')) : [];
+    const visible = () => {
+      const w = host.clientWidth, h = host.clientHeight;
+      const rect = host.getBoundingClientRect();
+      let right = 0, bottom = 0;
+      for (const panel of panels) {
+        const r = panel.getBoundingClientRect();
+        if (!r.width || !r.height) continue;
+        // A tall panel hugging the right edge is a side column; anything else is a bottom strip.
+        if (r.height > h * .5 && r.right >= rect.right - 2) right = Math.max(right, rect.right - r.left);
+        else bottom = Math.max(bottom, rect.bottom - r.top);
+      }
+      return { w, h, right: Math.min(right, w * .5), bottom: Math.min(bottom, h * .6) };
+    };
     const reset = () => {
-      const aspect = Math.max(host.clientWidth / Math.max(host.clientHeight,1), .5);
-      const distance = Math.max(1, 1.25 / aspect);
+      const v = visible();
+      const aspect = Math.max((v.w - v.right) / Math.max(v.h - v.bottom, 1), .5);
+      const distance = Math.max(1.12, 1.4 / aspect);
       camera.position.set(9 * distance, 10 * distance, 14 * distance);
       controls.target.set(0, 1.15, 0); controls.update();
     };
     view.current = { reset, zoom: factor => { camera.position.sub(controls.target).multiplyScalar(factor).add(controls.target); controls.update(); } };
+    let lastAspect = 0;
     const resize = () => {
-      const w = host.clientWidth, h = host.clientHeight;
-      if (!w || !h) return;
-      renderer.setSize(w,h); camera.aspect = w/h; camera.updateProjectionMatrix();
+      const v = visible();
+      if (!v.w || !v.h) return;
+      renderer.setSize(v.w, v.h); camera.aspect = v.w / v.h;
+      // Shift the frustum so the scene centre lands in the middle of the uncovered area.
+      camera.setViewOffset(v.w, v.h, v.right / 2, v.bottom / 2, v.w, v.h);
+      camera.updateProjectionMatrix();
+      // Re-frame when the uncovered area changes shape a lot (orientation flip,
+      // panel re-layout); small resizes keep whatever view the player chose.
+      const aspect = (v.w - v.right) / Math.max(v.h - v.bottom, 1);
+      if (lastAspect && (aspect / lastAspect > 1.3 || lastAspect / aspect > 1.3)) reset();
+      lastAspect = aspect;
     };
-    const observer = new ResizeObserver(resize); observer.observe(host); resize(); reset();
+    const observer = new ResizeObserver(resize); observer.observe(host); panels.forEach(p => observer.observe(p)); resize(); reset();
     scene.add(new THREE.HemisphereLight('#f7fbff', '#577e7f', 2.6));
     const sun = new THREE.DirectionalLight('#fff2d1', 3.4);
     sun.position.set(-4,10,7); sun.castShadow = true;
