@@ -40,3 +40,6 @@ next-env.d.ts
 # Blender backup and TypeScript incremental cache
 *.blend1
 *.tsbuildinfo
+
+# GitHub Pages static build
+/gh-dist/
