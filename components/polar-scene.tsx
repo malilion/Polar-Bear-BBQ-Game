@@ -6,6 +6,9 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RotateCcw, Move, ZoomIn, ZoomOut } from 'lucide-react';
 import { MENU, type State } from '../lib/game';
 
+// Static hosts (GitHub Pages project sites) serve the app from a sub-path.
+const BASE = import.meta.env?.BASE_URL ?? '/';
+
 type Props = { state: State; onSlot: (index: number) => void; onReady: (ready: boolean) => void };
 export default function PolarScene({ state, onSlot, onReady }: Props) {
   const mount = useRef<HTMLDivElement>(null);
@@ -71,7 +74,7 @@ export default function PolarScene({ state, onSlot, onReady }: Props) {
     const hitTargets: THREE.Object3D[]=[];
     const foods: { object: THREE.Object3D; slot: number; kind: 'meat'|'fish'; parts: {material:THREE.MeshStandardMaterial;raw:THREE.Color}[] }[]=[];
     const guests: THREE.Object3D[]=[];
-    new GLTFLoader().load('/models/polar-bbq.glb', gltf => {
+    new GLTFLoader().load(BASE + 'models/polar-bbq.glb', gltf => {
       if(disposed){disposeModel(gltf.scene);return;}
       root=gltf.scene;
       root.traverse(o=>{
