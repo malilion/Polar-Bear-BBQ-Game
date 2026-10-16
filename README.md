@@ -58,3 +58,7 @@ BLENDER_BIN=/Applications/Blender.app/Contents/MacOS/Blender
 `GrillHit0`～`GrillHit2` 帶有 `slotIndex` 自訂屬性供射線點擊；`Food_meat_0`～`Food_fish_2` 是食材群組；`cookable` 網格隨熟度變色。`Guest_0`～`Guest_2` 依訂單存在與否顯示。`Chef`、`ChefHead` 與 `ChefArmRight` 用於輕量動畫。
 
 Blender 的 Z-up 匯出為 glTF 的 Y-up。遊戲狀態集中在 `lib/game.ts`，模型只呈現同一份狀態。
+
+## License
+
+Code: [MIT](LICENSE). Original assets (art, models, audio, renders): [CC BY-NC 4.0](ASSETS_LICENSE.md).
